@@ -1,119 +1,113 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="Test Value — Less friction. Meaningful protection. An agent skill for tests worth maintaining." width="100%">
+  <img src="assets/banner-zh.svg" alt="Test Value：让测试保护产品，让开发继续前进。保留有价值的保护，减少无意义的消耗。" width="100%">
 </p>
 
 <p align="center">
-  <a href="SKILL.md">Read the skill</a> ·
-  <a href="#install">Install</a> ·
-  <a href="#use-it">Use it</a> ·
-  <a href="CONTRIBUTING.md">Contribute</a>
+  <strong>简体中文</strong> · <a href="README_EN.md">English</a>
+</p>
+<p align="center">
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#它能带来什么">它能带来什么</a> ·
+  <a href="#背后的判断原则">判断原则</a> ·
+  <a href="SKILL.md">阅读 Skill</a>
 </p>
 
-# Tests should earn their place.
+# AI 写测试很快，维护测试却很贵。
 
-AI can generate tests faster than a team can maintain them. The result can be a growing collection of slow matrices, brittle snapshots and assertions that reject perfectly good refactors.
+一次正常重构，让几十个测试变红；自动布局变得更清晰，却被旧坐标拦住；每次修改都重跑全量，时间不断消耗在等待和误报排查里。
 
-**Test Value** is a reusable agent skill for deciding which tests to add, keep, improve or retire. It helps agents protect real behavior while reducing feedback time and maintenance friction.
+**Test Value** 是一个面向 AI / Agent 的测试维护 skill。它帮助 Agent 在开发、提交前和存量治理中判断：哪些测试值得新增，哪些应该复用，哪些需要改写，哪些可以退役。
 
-> What concrete mistake does this test catch — and is that protection worth its cost?
+> **这个测试能抓住什么具体错误？这份保护，值得付出多少维护成本？**
 
-## Three moments to use it
+它来自 [Archify](https://github.com/tt-a1i/archify) 的实际测试维护经历。目标是让测试持续保护产品，同时给合法重构、性能提升和更好的产品效果留下空间。
 
-| When | What the skill helps decide |
-| --- | --- |
-| **While implementing** | Extend existing coverage, add a focused regression, or add no new test when protection already exists. |
-| **Before a commit or PR** | Check the tests affected by the change, identify brittle assertions and choose proportionate verification. |
-| **When tests become a burden** | Investigate slow, flaky or redundant tests and make evidence-backed improvements in batches. |
+## 它能带来什么
 
-Reviewing tests does not authorize committing, pushing or changing release requirements. Ordinary use stays scoped to the task.
+| 你遇到的问题 | Agent 应该做出的改进 | 保留下来的价值 |
+| --- | --- | --- |
+| 每次小改动都跑完整测试 | 按影响选择检查，复用仍然有效的结果 | 与本次风险相称的反馈 |
+| 同一规则在多个入口反复展开 | 验证共享规则全集，各入口检查实际接入 | 规则与入口差异仍有保护 |
+| 测试绑定内部函数名或源码写法 | 改为验证输出、状态或真实失败边界 | 等价重构可以正常通过 |
+| 自动输出一变，快照就失败 | 区分用户明确要求与算法自行选择的结果 | 更好的合法结果有改进空间 |
+| 重试后变绿，但问题原因不明 | 调查就绪条件、隔离、清理与真实竞争条件 | 故障仍然可见 |
+| AI 写的代码和测试一起犯错 | 从需求、公开契约或真实故障建立预期 | 测试有独立的正确性依据 |
 
-## Install
+**精简测试也需要证明。** 数据完整性、权限边界、兼容性、关键无障碍行为、资源清理和失败恢复的有效保护，都值得保留。罕见而严重的故障，可能比大量轻量断言更有测试价值。
 
-Using the [Skills CLI](https://github.com/vercel-labs/skills):
+## 快速开始
+
+使用 [Skills CLI](https://github.com/vercel-labs/skills) 安装：
 
 ```sh
 npx skills add tt-a1i/test-value --skill test-value
 ```
 
-Choose the target agent and installation scope in the installer. To inspect the available skill without installing:
+在安装器中选择目标 Agent 和安装范围。只想查看可发现的 skill：
 
 ```sh
 npx skills add tt-a1i/test-value --list
 ```
 
-For manual installation, place this repository's skill directory in the location your agent uses for skills. Preserve `SKILL.md`, `references/` and, for Codex UI metadata, `agents/`. Agent discovery and invocation behavior depend on the host; this repository provides Markdown guidance, not a test runner or Git hook.
+Codex 中可以用 `$test-value` 显式调用。其他支持 skills 的 Agent，按宿主提供的方式调用 skill 名称。手动安装时，将 `SKILL.md`、`references/` 放入宿主的 skill 目录；Codex 界面信息位于 `agents/`。
 
-## Use it
+Skill 的指令保持英文，README 提供中英两版。它提供可复用的判断方法，实际发现和调用方式由 Agent 宿主决定。
 
-In Codex, invoke it explicitly with `$test-value`. In other skill-capable agents, request the skill by name using the host's supported invocation method.
+## 三种用法，直接复制
 
-**Improve an existing suite**
-
-```text
-Use $test-value to investigate the slow and brittle tests in this project.
-Implement justified improvements, preserve core behavior, and report the
-coverage tradeoffs and measured results. Keep changes local.
-```
-
-**Review the tests for a change**
+### ① 开发时：写一个真正能抓住错误的测试
 
 ```text
-Use $test-value to review tests relevant to this diff before I commit.
-Identify missing protection, redundant checks and assertions that would
-reject an equivalent refactor. Do not commit or push.
+使用 $test-value 修复这个 bug。
+先找已有测试能否覆盖，再选择成本最低、能暴露真实故障的回归用例。
+确认坏结果会失败，修复后能通过。
 ```
 
-**Design a regression**
+### ② 提交前：审视这次改动，而不是扩大工作量
 
 ```text
-Use $test-value while fixing this bug. Find the cheapest test that exposes
-the actual failure, reuse existing fixtures where appropriate, and confirm
-that the test distinguishes the broken behavior from the fix.
+使用 $test-value 审视当前 diff 涉及的测试。
+指出缺失的保护、重复检查，以及会误拦等价重构的断言。
+按风险选择验证。不要提交或推送。
 ```
 
-## The philosophy
+### ③ 治理时：减少等待，也减少未来的维护负担
 
-**Correctness needs an independent basis.** An implementation and a test generated from that implementation can agree and still be wrong. Start from user requirements, public contracts or observed failures.
+```text
+使用 $test-value 调查这个项目里慢、脆弱或重复的测试。
+分批落实有证据的改进，保留核心行为与真实失败边界。
+报告实际收益、取消的组合和验证缺口。只改本地。
+```
 
-**Protect outcomes; allow valid improvements.** A clearer automatic route should not fail because its intermediate bends moved. User-authored geometry and promised protocol bytes may still require exact checks.
+## 背后的判断原则
 
-**Count the whole cost.** Runtime, false-alarm investigation, fixture upkeep, blocked refactors and repeated verification all matter. A rare data-loss regression can be worth more than hundreds of fast but redundant assertions.
+**正确性要有独立依据。** 代码和从代码生成的测试可以一致地犯错。需求、公开契约、兼容性样本与真实故障，才是建立预期的依据。
 
-**Require evidence for cuts as well as additions.** Identify which remaining test catches the original mistake. When relaxing an assertion, check that a valid alternative passes and the bad result still fails.
+**保护结果，也允许改进。** 自动布局的中间拐点通常可以变化；用户明确指定的坐标、端口和路径仍然应被尊重。公开格式和确定性承诺也可能需要精确比较。
 
-**Verify in proportion to risk.** Reuse applicable evidence and run affected checks. Confirm that intended tests actually executed; zero collected tests and skipped environments are not proof of correctness.
+**计算完整成本。** 等待、误报排查、夹具维护、被阻碍的重构和反复验证，都有成本。测试数量和覆盖率不能单独说明收益。
 
-## What changes in practice?
+**新增与删减，都用证据说话。** 放宽断言时，检查合法替代结果能否通过、原始错误是否仍然失败。删除重复项时，指出谁接管了保护。
 
-| A maintenance burden | A better decision |
+**验证强度跟风险走。** 复用有效证据，按影响扩大检查。确认预期测试实际执行；误选零测试、环境跳过和模拟结果，各自有不同的证明范围。
+
+## 从实际使用中继续成长
+
+Agent 遇到有证据的新原则，可以改进 skill：说明观察到了什么、会改变哪个决策、适用于什么情况，以及有什么例外。
+
+优先完善已有原则，避免不断堆叠规矩。每次更新后，Agent 必须告诉用户**改了什么、为什么改、文件在哪里、是否已保存**。本地学习不会自动发布或同步到其他安装。
+
+## 内容与贡献
+
+| 文件 | 内容 |
 | --- | --- |
-| A snapshot freezes every automatic layout coordinate | Check attachment, direction and obstacle avoidance; retain explicit constraints. |
-| Every entrypoint repeats the same shared rule matrix | Cover shared rules and each entrypoint's integration, retaining combinations with distinct handling. |
-| A release test searches source code for required filenames | Exercise missing-input behavior, or reuse an existing check that already does. |
-| A flaky test turns green after retries | Investigate readiness, isolation and product races; distinguish quarantine from a pass. |
-| Every small edit triggers another full run | Select checks by impact and reuse results that remain applicable. |
+| [SKILL.md](SKILL.md) | 范围、决策方法、保护边界和从使用中学习 |
+| [审计指南](references/audit.md) | 成本调查、删减证据和按风险执行 |
+| [判断示例](references/decision-examples.md) | 自动布局、共享矩阵、源码断言、异步等待等案例 |
+| [贡献说明](CONTRIBUTING.md) | 如何用真实问题和反例改进指导 |
 
-These are decision examples, not blanket deletion rules. The skill preserves effective protection for data integrity, trust boundaries, compatibility, accessibility, cleanup and recovery. It does not pursue a test-count target or prescribe a universal time budget.
+Skill 已经过独立 Agent 审查和场景审查；跨项目效果仍需要在真实使用中验证。欢迎提供具体故障、反例或维护收益，让它变得更有用、更简洁。
 
-## Learn from real use
-
-Agents may refine the skill when an observed failure or useful counterexample reveals a missing principle. Each refinement should explain what decision improves, when it applies and where it does not.
-
-Prefer revising an existing principle to accumulating rules. Agents must tell the user what changed, why, and where it was saved. Local learning does not automatically publish or synchronize changes.
-
-## Inside the skill
-
-| File | Purpose |
-| --- | --- |
-| [SKILL.md](SKILL.md) | Scope, decision process, safeguards and learning from use. |
-| [Audit guide](references/audit.md) | Cost mapping, reduction evidence and execution by risk. |
-| [Decision examples](references/decision-examples.md) | Concrete cases and common traps. |
-| [Codex metadata](agents/openai.yaml) | Display name, default prompt and implicit-invocation setting. |
-
-Developed from hands-on test maintenance in [Archify](https://github.com/tt-a1i/archify). The guidance has received independent agent review and scenario-based review; broader effectiveness remains something to establish through real use.
-
-Contributions should bring a concrete failure, counterexample or maintenance improvement. See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## License
-
-[MIT](LICENSE).
+<p align="center">
+  <a href="LICENSE">MIT License</a> · <a href="README_EN.md">English version</a> · <a href="https://github.com/tt-a1i/test-value/issues">反馈与讨论</a>
+</p>

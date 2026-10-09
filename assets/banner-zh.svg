@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="460" viewBox="0 0 1280 460" role="img" aria-labelledby="title desc">
+  <title id="title">Test Value</title>
+  <desc id="desc">让测试保护产品，让开发继续前进。面向 AI 与 Agent 的测试价值指南。</desc>
+  <rect width="1280" height="460" rx="24" fill="#101b29"/>
+  <path d="M850 0v460M960 0v460M1070 0v460M1180 0v460M800 80h480M800 190h480M800 300h480M800 410h480" stroke="#243448" stroke-width="1"/>
+  <rect x="64" y="57" width="186" height="30" rx="15" fill="#233b3c"/>
+  <text x="82" y="78" fill="#8de3c1" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="13" font-weight="700" letter-spacing="2">AI / AGENT SKILL</text>
+  <text x="60" y="173" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Test Value</text>
+  <text x="64" y="229" fill="#8de3c1" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="29">让测试保护产品，让开发继续前进。</text>
+  <text x="64" y="275" fill="#b5c3d5" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21">保留有价值的保护，减少无意义的消耗。</text>
+  <path d="M65 335h635" stroke="#334358"/>
+  <text x="64" y="380" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">保护真实结果</text>
+  <text x="295" y="380" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">允许更好的实现</text>
+  <text x="550" y="380" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="16">关注维护成本</text>
+  <rect x="845" y="102" width="359" height="250" rx="18" fill="#18293b" stroke="#3d5369"/>
+  <text x="875" y="144" fill="#b5c3d5" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="14" letter-spacing="2">这个测试，究竟保护了什么？</text>
+  <circle cx="889" cy="195" r="12" fill="#8de3c1"/>
+  <path d="m883 195 4 4 8-9" fill="none" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="202" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21">真实的用户结果</text>
+  <circle cx="889" cy="251" r="12" fill="#8de3c1"/>
+  <path d="m883 251 4 4 8-9" fill="none" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="258" fill="#f6f8fb" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21">值得防范的故障</text>
+  <circle cx="889" cy="307" r="12" fill="#f2b29e"/>
+  <path d="m884 302 10 10m0-10-10 10" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="314" fill="#b5c3d5" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif" font-size="21">偶然的实现细节</text>
+</svg>
