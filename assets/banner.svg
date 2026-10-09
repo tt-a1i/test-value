@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="460" viewBox="0 0 1280 460" role="img" aria-labelledby="title desc">
+  <title id="title">Test Value</title>
+  <desc id="desc">Less friction. Meaningful protection. An agent skill for tests worth maintaining.</desc>
+  <rect width="1280" height="460" rx="24" fill="#101b29"/>
+  <path d="M850 0v460M960 0v460M1070 0v460M1180 0v460M800 80h480M800 190h480M800 300h480M800 410h480" stroke="#243448" stroke-width="1"/>
+  <rect x="64" y="57" width="186" height="30" rx="15" fill="#233b3c"/>
+  <text x="82" y="78" fill="#8de3c1" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="2">AN AGENT SKILL</text>
+  <text x="60" y="173" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Test Value</text>
+  <text x="64" y="229" fill="#8de3c1" font-family="Arial, Helvetica, sans-serif" font-size="29">Less friction. Meaningful protection.</text>
+  <text x="64" y="275" fill="#b5c3d5" font-family="Arial, Helvetica, sans-serif" font-size="21">Keep the tests that earn their place.</text>
+  <path d="M65 335h635" stroke="#334358"/>
+  <text x="64" y="380" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="16">PROTECT OUTCOMES</text>
+  <text x="295" y="380" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="16">ALLOW IMPROVEMENT</text>
+  <text x="550" y="380" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="16">MEASURE COST</text>
+  <rect x="845" y="102" width="359" height="250" rx="18" fill="#18293b" stroke="#3d5369"/>
+  <text x="875" y="144" fill="#b5c3d5" font-family="Arial, Helvetica, sans-serif" font-size="14" letter-spacing="2">WHAT DOES THIS TEST PROTECT?</text>
+  <circle cx="889" cy="195" r="12" fill="#8de3c1"/>
+  <path d="m883 195 4 4 8-9" fill="none" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="202" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="21">Real user outcomes</text>
+  <circle cx="889" cy="251" r="12" fill="#8de3c1"/>
+  <path d="m883 251 4 4 8-9" fill="none" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="258" fill="#f6f8fb" font-family="Arial, Helvetica, sans-serif" font-size="21">Meaningful failures</text>
+  <circle cx="889" cy="307" r="12" fill="#f2b29e"/>
+  <path d="m884 302 10 10m0-10-10 10" stroke="#101b29" stroke-width="2.5"/>
+  <text x="918" y="314" fill="#b5c3d5" font-family="Arial, Helvetica, sans-serif" font-size="21">Incidental implementation</text>
+</svg>
