@@ -35,6 +35,14 @@ Before reducing platform matrices, distinguish runtime-compatibility smoke from 
 
 When changing affected-test selection, check new files, renames, deletions, shared dependencies and unknown paths. Classification failures must not silently become successful skips. Respect required checks; a request for faster feedback does not authorize changing branch protection or release policy.
 
+## Remove duplicate execution and preserve CI gates
+
+Trace which suites each job actually executes before cutting cases. A mixed browser suite may repeat ordinary checks already owned by a Node job; separating responsibilities can remove duplicate execution while retaining every case. Keep repetition that exposes a distinct runtime or platform risk, and account for any additional fixture setup introduced by the split.
+
+When introducing shards, establish that their union covers the intended inventory and their intersections are empty unless overlap is deliberate. Required aggregation must reject failed, cancelled or missing required work; intentional skips need an explicit scope decision. Verify that deployment and release consumers still depend on the required result. Inventory checks prove dispatch, while real runs establish execution in the target environment.
+
+Use measured job costs to balance shards and remove avoidable serial setup. Account for checks assigned to only one shard. Faster wall time can consume more compute, and extra workers can increase contention. Borrow mechanisms from other projects only when they address an observed bottleneck; caching and orchestration also have maintenance and setup costs.
+
 ## Work in batches
 
 Complete a change and verification for one responsibility boundary before moving to the next. Stabilize unreliable measurements before claiming speedups. Track live process handles; an observation timeout does not justify starting another full run.

@@ -15,7 +15,7 @@ Preserve the user's existing authorization and operational boundaries.
 - **Implementation or pre-commit review:** examine the behavior being changed and its affected tests. Decide whether to add, adapt, reuse or remove tests. Reviewing before a commit does not itself authorize committing or pushing.
 - **Diagnose a failure:** identify the outcome the failing check protects, then distinguish a product regression, obsolete assertion, environment failure or unstable test. Keep a narrowly requested fix narrow.
 
-Read [decision-examples.md](references/decision-examples.md) when dealing with automatic-layout snapshots, shared matrices, source assertions, asynchronous waits, test doubles, benchmarks or coverage gaps.
+Read [decision-examples.md](references/decision-examples.md) when dealing with automatic-layout snapshots, shared matrices, source assertions, semantic identity, asynchronous waits, test doubles, benchmarks or coverage gaps.
 
 ## Establish an independent basis for correctness
 
@@ -59,7 +59,7 @@ Run destructive probes in temporary copies or controlled fixtures, preserving ex
 
 ## Control feedback cost
 
-Read the project's actual test commands, CI selection rules and current changes before selecting the smallest set of checks that covers the risk. Affected behavior determines whether integration, browser, platform or complete verification is needed.
+Optimize where and how often tests run as well as what they assert. Read the project's actual test commands, CI selection rules and current changes before selecting the smallest set of checks that covers the risk. Affected behavior determines whether integration, browser, platform or complete verification is needed.
 
 Confirm that the intended tests actually executed, including filters, collection and skips. A successful command with no relevant tests is not evidence that the behavior passed. Zero selection can be appropriate for changes with no affected tests, but establish that reason instead of inferring it from a green exit code.
 

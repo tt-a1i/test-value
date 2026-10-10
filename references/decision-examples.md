@@ -26,6 +26,12 @@ A stronger check untracks or removes required inputs in a temporary repository a
 
 Static checks can enforce real architectural or safety constraints, such as preventing database imports in a restricted layer or excluding files from a release package. Check dependency relationships or artifact facts rather than import formatting, private names or incidental call counts.
 
+## Semantic identity and incidental representation
+
+**Situation:** a delivery receipt returns a Windows long path while the test fixture uses an 8.3 alias for the same file, or a workflow test fails after its dependency list is reordered.
+
+Choose equality from the contract. For an existing output, resolve paths with appropriate native semantics or compare file identity; still reject the wrong target. Parse workflow dependencies and assert required relationships rather than YAML formatting or irrelevant order. Keep exact spelling, ordering or bytes when the public contract promises them. Normalization must not hide distinct case-sensitive files, symlink restrictions or authored-path preservation requirements.
+
 ## Failures and shared mistakes
 
 **Situation:** AI-generated implementation and tests agree, but the business result is wrong.
@@ -41,6 +47,10 @@ Compare with the baseline in the same environment to separate existing failures 
 **Situation:** an asynchronous test fails intermittently and turns green on retry.
 
 Prefer real readiness signals and inspect ownership and cleanup. Distinguish a product race from a test timing assumption. Timeouts should reflect the protected deadline and execution environment: an unreasonable test timeout can be widened, while a contractual product deadline still needs coverage. Quarantine needs a reason, replacement protection and a clear restoration condition; it is not a pass.
+
+**Situation:** a test for persisting network-failure backoff also requires a fresh subprocess to start and finish within a tiny deadline.
+
+Separate failure-state persistence from hard process-deadline enforcement when they are independent contracts. Exercise real cancellation and persisted state at the cheapest effective layer, and retain a real process check for deadline enforcement. Preserve an integration case where startup or cache preparation consumes the same deadline budget: separate unit tests cannot establish that those phases compose correctly. Injecting a controlled startup delay can distinguish an incidental speed assumption from a genuine deadline-accounting bug.
 
 **Situation:** sharing a browser page or extracted package reduces setup time.
 
