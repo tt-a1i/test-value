@@ -61,7 +61,7 @@ Run destructive probes in temporary copies or controlled fixtures, preserving ex
 
 Optimize where and how often tests run as well as what they assert. Read the project's actual test commands, CI selection rules and current changes before selecting the smallest set of checks that covers the risk. Affected behavior determines whether integration, browser, platform or complete verification is needed.
 
-Confirm that the intended tests actually executed, including filters, collection and skips. A successful command with no relevant tests is not evidence that the behavior passed. Zero selection can be appropriate for changes with no affected tests, but establish that reason instead of inferring it from a green exit code.
+Confirm that the intended tests actually executed, including filters, collection, skips, and the phase that carries the assertion or measurement. A successful command with no relevant tests is not evidence that the behavior passed. A failure before that phase ran is not evidence about the measured behavior or metric. Where a change is authorized, make the unmet precondition fail explicitly, and accept measurements only from runs that pass it. Widening a timeout does not supply the missing phase. Zero selection can be appropriate for changes with no affected tests, but establish that reason instead of inferring it from a green exit code.
 
 Reuse results whose revision identity, inputs, environment and coverage remain applicable, and disclose what was reused. Expand or repeat verification when a new change, failure or unresolved risk invalidates evidence. Narrow failures for diagnosis instead of repeatedly launching the complete suite.
 
