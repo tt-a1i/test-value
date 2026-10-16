@@ -2,7 +2,7 @@
 
 ## Map the cost
 
-Confirm the workspace, comparison baseline and uncommitted changes; read test entrypoints and CI configuration. Reuse current logs before collecting measurements that are genuinely missing.
+Confirm the workspace, comparison baseline and uncommitted changes; read test entrypoints and CI configuration. Reuse current logs before collecting measurements that are genuinely missing. If a candidate fails before its measurement or contract phase, record that unmet precondition rather than a metric. The timeout text and a post-run artifact hash are not measurements of the metric, and lengthening the timeout does not create one. Where a change is authorized, make the precondition fail explicitly, then measure only runs that pass it.
 
 For broad work, group tests by responsibility: core product behavior, shared algorithms, entrypoint integration, browser/platform behavior, filesystem and process safety, distribution/installation, generated artifacts and CI selection. Identify uninspected areas; one successful cut does not establish that the whole project is optimal.
 
