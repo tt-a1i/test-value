@@ -50,6 +50,10 @@ Compare with the baseline in the same environment to separate existing failures 
 
 Prefer real readiness signals and inspect ownership and cleanup. Distinguish a product race from a test timing assumption. Timeouts should reflect the protected deadline and execution environment: an unreasonable test timeout can be widened, while a contractual product deadline still needs coverage. Widening does not apply when the failure is an unmet precondition before the measured phase. Quarantine needs a reason, replacement protection and a clear restoration condition; it is not a pass.
 
+For example, output emitted before a client connects may arrive through a restore snapshot instead of the live stream. Establish readiness from the protocol's valid delivery paths while retaining live-stream assertions for behavior that promises live delivery. Reproduce the ordering that breaks the old setup; do not widen the measured product deadline to absorb a fixture mistake. A successful retry leaves an unexplained original failure unresolved.
+
+When adding failure diagnostics, preserve the original exception and use already captured observations where possible. Extra reads from a closed store or failed process can throw and hide the failure being investigated. Exercise the diagnostic path with a controlled failure, not only a successful run.
+
 **Situation:** a test for persisting network-failure backoff also requires a fresh subprocess to start and finish within a tiny deadline, or two named deadlines are both derived from one timeout input.
 
 Separate failure-state persistence from hard process-deadline enforcement when they are independent contracts. Deadlines derived from the same input are one budget, even when their names differ. A test of that shared budget shows which contract failed only when it observes the earlier event before the deadline: drive the first observation deterministically, then let the later wait hit the remaining budget. Widening the shared duration does not separate the contracts. Exercise real cancellation and persisted state at the cheapest effective layer, and retain a real process check for deadline enforcement. Preserve an integration case where startup or cache preparation consumes the same deadline budget: separate unit tests cannot establish that those phases compose correctly. Injecting a controlled startup delay can distinguish an incidental speed assumption from a genuine deadline-accounting bug.
@@ -57,6 +61,10 @@ Separate failure-state persistence from hard process-deadline enforcement when t
 **Situation:** sharing a browser page or extracted package reduces setup time.
 
 Check storage, globals, timers, network, files and cleanup for isolation. Start rejection cases from clean inputs. Reuse must not conceal leaks when cleanup is part of the behavior under test. A faster case does not establish a faster parallel pipeline.
+
+**Situation:** a shared runner isolates the home directory or adds cancellation handling.
+
+Trace effective paths, including explicit provider overrides and platform application-data directories that can bypass the isolated home. Use temporary sentinels to verify the child actually uses the intended location. For cancellation changes, exercise real descendants and nested runners where supported; an outer process exiting does not prove its children stopped. Check process termination and temporary-resource cleanup, and state untested platform or signal boundaries. Avoid a second run while the first may still own processes or files.
 
 ## Test doubles and test layers
 

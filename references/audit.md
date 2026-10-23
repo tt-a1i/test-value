@@ -8,6 +8,8 @@ For broad work, group tests by responsibility: core product behavior, shared alg
 
 Cost includes execution time, false-alarm investigation, fixture maintenance, blocked refactors, flaky reruns and resource contention. A lack of historical failures does not establish low value: rare data corruption can justify expensive protection.
 
+Break down the slow path into dependency installation, build, collection/environment setup, execution, artifact transfer and teardown before choosing a change. Shared setup can charge every test for an environment only a few need; an installation smoke can spend most of its time installing rather than checking behavior. Scope setup to its actual consumers and check those consumers still work. Re-measure the critical path after an improvement: extra shards stop helping feedback time when another stage dominates.
+
 Choose candidates from measured bottlenecks, frequent false alarms or current development friction. Avoid predetermined deletion ratios, coverage targets or universal time limits. An expensive test outside the daily loop may cost less than hundreds of small duplicates in every feedback cycle.
 
 ## Prove the boundary of a cut
@@ -42,6 +44,12 @@ Trace which suites each job actually executes before cutting cases. A mixed brow
 When introducing shards, establish that their union covers the intended inventory and their intersections are empty unless overlap is deliberate. Required aggregation must reject failed, cancelled or missing required work; intentional skips need an explicit scope decision. Verify that deployment and release consumers still depend on the required result. Inventory checks prove dispatch, while real runs establish execution in the target environment.
 
 Use measured job costs to balance shards and remove avoidable serial setup. Account for checks assigned to only one shard. Faster wall time can consume more compute, and extra workers can increase contention. Borrow mechanisms from other projects only when they address an observed bottleneck; caching and orchestration also have maintenance and setup costs.
+
+## Optimize installation without bypassing acceptance
+
+When caching, resolve the directory used by the actual consumer under its effective environment and configuration. A wrapper that sanitizes variables or supplies an empty config can use a different cache from the CI setup action. A restored archive alone proves neither consumption nor saved work. Compare a bounded cold/warm run on the same revision, including restore overhead; retain a cold check when network installation is itself the contract. Keep fresh install destinations when validating installation, rather than substituting a cached installed tree.
+
+If install payload dominates, inspect runtime versus build-only dependencies before adding more orchestration. Validate dependency reductions from the produced package in a clean location outside checkout dependency resolution. Exercise affected runtime features, including dynamic imports, and preserve shipped assets and required third-party notices for bundled code. Static import scans support this check but cannot establish every runtime path. Keep dependencies actually used at runtime even if a common smoke does not load them.
 
 ## Work in batches
 
