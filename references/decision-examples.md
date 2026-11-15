@@ -58,6 +58,10 @@ When adding failure diagnostics, preserve the original exception and use already
 
 Separate failure-state persistence from hard process-deadline enforcement when they are independent contracts. Deadlines derived from the same input are one budget, even when their names differ. A test of that shared budget shows which contract failed only when it observes the earlier event before the deadline: drive the first observation deterministically, then let the later wait hit the remaining budget. Widening the shared duration does not separate the contracts. Exercise real cancellation and persisted state at the cheapest effective layer, and retain a real process check for deadline enforcement. Preserve an integration case where startup or cache preparation consumes the same deadline budget: separate unit tests cannot establish that those phases compose correctly. Injecting a controlled startup delay can distinguish an incidental speed assumption from a genuine deadline-accounting bug.
 
+**Situation:** removing setup overhead or enabling concurrency causes an infrequent state-revert or missed-delivery failure.
+
+Faster execution compresses event windows and increases same-millisecond or out-of-order arrivals, such as a delayed initial snapshot overwriting an optimistic save or a strict `<` timestamp filter dropping work queued in the same tick as worker startup. Reproduce the ordering deterministically and fix the product boundary, preserving live-claim and newer-update invariants, rather than serializing the suite, adding sleeps, or loosening assertions. Synchronize the regression on actual state commit, revalidation body, and UI update completion rather than response headers or timer ticks, and include both a negative control for stale data and a positive case where a genuinely newer external update wins.
+
 **Situation:** sharing a browser page or extracted package reduces setup time.
 
 Check storage, globals, timers, network, files and cleanup for isolation. Start rejection cases from clean inputs. Reuse must not conceal leaks when cleanup is part of the behavior under test. A faster case does not establish a faster parallel pipeline.
@@ -69,6 +73,10 @@ Trace effective paths, including explicit provider overrides and platform applic
 ## Test doubles and test layers
 
 Cheap, controllable tests suit pure rules and fault injection. Packaged relative paths, filesystem casing, browser layout and real process lifecycles need corresponding environments. Preserve necessary integration paths without sending every rule through the UI or public CLI.
+
+**Situation:** a rule or argument test spawns dozens of fresh CLI or Git subprocesses in a serial loop, or proposes exporting private state or running a prebuilt artifact to avoid cold starts.
+
+Evaluate pure planning or validation matrices in memory through cohesive exported modules or a lightweight public provider, without adding test-only production branches or exposing private internals solely for tests. Retain a small real subprocess and repository fixture for argument parsing, environment isolation, bad references, stdin limits, and exit codes. Where real CLI invocations are independent and stateless, such as help output or invalid-flag rejections, run them concurrently while keeping stateful mutations ordered. Do not redirect source-level tests to prebuilt output that can pass on stale builds; test built artifacts in dedicated packaging checks that build fresh.
 
 Mocked filesystem success does not establish Windows support; skipped Chrome tests do not establish browser acceptance; generated screenshots do not establish readability. Report these as separate claims.
 

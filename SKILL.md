@@ -27,7 +27,7 @@ For tests being added or changed, answer three questions in the reasoning or a s
 2. Would an equivalent refactor or a better valid result also fail? Which restrictions are actually contractual?
 3. Which existing test, type check or other check already catches this mistake? Does the additional protection justify its execution and maintenance cost?
 
-Prefer observable output, state, data integrity and failure behavior. Private-function tests, snapshots and static checks can also protect real boundaries; their form alone does not determine their value.
+Prefer observable output, state, data integrity and failure behavior. Private-function tests, snapshots and static checks can also protect real boundaries; their form alone does not determine their value. Exercise real public contracts or cohesive internal modules rather than adding test-only production branches or exports, and do not substitute potentially stale build artifacts for current-source checks.
 
 ## Make the smallest effective testing decision
 
@@ -53,7 +53,7 @@ Use evidence proportionate to the risk instead of creating another test suite fo
 - **Bug fix:** where practical, reproduce the original failure with the regression and verify the fix passes. State the gap if reproduction is unavailable.
 - **Relaxed assertion:** try a valid alternative and the original bad result; the former should pass and the latter fail. Temporary fault injection can help for consequential errors; a mutation score is not an end in itself.
 - **Consolidation or deletion:** trace actual call paths and establish that surviving tests detect the same mistake. Similar names, a shared helper or overlapping line coverage do not prove duplication.
-- **Shared fixtures:** reset mutable state and retain isolation and cleanup assertions between failure attempts. Gains must not depend on test order or accidental cache hits.
+- **Shared fixtures and worker pools:** reset mutable state and verify cross-file global, DOM, singleton and handle isolation before reusing workers across files. Retain cleanup assertions between failure attempts; gains must not depend on test order or accidental cache hits.
 
 Run destructive probes in temporary copies or controlled fixtures, preserving existing user changes. An unavailable environment is a validation gap; simulated evidence cannot stand in for a real browser, operating system or distribution package.
 
@@ -63,9 +63,9 @@ Optimize where and how often tests run as well as what they assert. Read the pro
 
 Confirm that the intended tests actually executed, including filters, collection, skips, and the phase that carries the assertion or measurement. A successful command with no relevant tests is not evidence that the behavior passed. A failure before that phase ran is not evidence about the measured behavior or metric. Where a change is authorized, make the unmet precondition fail explicitly, and accept measurements only from runs that pass it. Widening a timeout does not supply the missing phase. Zero selection can be appropriate for changes with no affected tests, but establish that reason instead of inferring it from a green exit code.
 
-Reuse results whose revision identity, inputs, environment and coverage remain applicable, and disclose what was reused. Expand or repeat verification when a new change, failure or unresolved risk invalidates evidence. Narrow failures for diagnosis instead of repeatedly launching the complete suite.
+Reuse results whose revision identity, inputs, environment and coverage remain applicable, and disclose what was reused. Expand or repeat verification when a new change, failure or unresolved risk invalidates evidence. When faster setup or concurrency exposes a failure, check for a real ordering or timestamp-boundary defect before throttling parallelism or adding waits. Narrow failures for diagnosis instead of repeatedly launching the complete suite.
 
-Claim speedups only from measurements. Distinguish case time, file time, a parallel pipeline's critical path and total compute. Attribute nested log timings correctly: a parent suite's duration is not its final child's duration. Control runtime, platform, inputs, cache state and competing work when comparing measurements.
+Claim speedups only from measurements. Distinguish case time, file time, teardown waits, a parallel pipeline's critical path and total compute. Attribute nested log timings correctly: a parent suite's duration is not its final child's duration. Control runtime, platform, inputs, cache state and competing work when comparing measurements.
 
 ## Learn from use
 
